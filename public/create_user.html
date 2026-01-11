@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 py-10">
+
+<div class="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-lg">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+        Create User Account
+    </h1>
+
+    <form method="POST" action="save_user.php" class="space-y-6">
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="username">
+                Username
+            </label>
+            <input type="text" id="username" name="username" required
+                   class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="password">
+                Password
+            </label>
+            <input type="password" id="password" name="password" required
+                   class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="role">
+                Role
+            </label>
+            <select id="role" name="role" required
+                    class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <option value="">Select Role</option>
+                <option value="admin">Admin</option>
+                <option value="hr">HR</option>
+                <option value="manager">Manager</option>
+            </select>
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1" for="employee_id">
+                Employee (optional)
+            </label>
+            <input type="number" id="employee_id" name="employee_id" placeholder="Employee ID"
+                   class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <div class="text-center">
+            <button type="submit"
+                    class="px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition">
+                Create Account
+            </button>
+        </div>
+
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,1 +1,137 @@
-Monitors attendance, shift schedules, vacation, and sick leaves.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Attendance & Leave Management</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 py-10">
+
+<div class="max-w-6xl mx-auto bg-white p-8 rounded-xl shadow-lg space-y-10">
+
+  <h1 class="text-3xl font-bold text-gray-800 text-center">
+    Attendance & Leave Management
+  </h1>
+
+  <form class="space-y-8">
+
+    <!-- Attendance Tracking -->
+    <fieldset class="space-y-4">
+      <legend class="text-lg font-semibold text-gray-700">
+        Attendance
+      </legend>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Employee</label>
+          <select class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <option>Select Employee</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Date</label>
+          <input type="date" class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Check-in Time</label>
+          <input type="time" class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Check-out Time</label>
+          <input type="time" class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <div class="md:col-span-2 flex items-end">
+          <button class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+            Record Attendance
+          </button>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Shift Scheduling -->
+    <fieldset class="space-y-4">
+      <legend class="text-lg font-semibold text-gray-700">
+        Shift Scheduling
+      </legend>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Employee</label>
+          <select class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <option>Select Employee</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Shift Date</label>
+          <input type="date" class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Shift Time</label>
+          <input type="text" placeholder="e.g. 09:00 - 17:00" class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <div class="md:col-span-3 flex justify-end">
+          <button class="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700 transition">
+            Assign Shift
+          </button>
+        </div>
+      </div>
+    </fieldset>
+
+    <!-- Vacation & Sick Leaves -->
+    <fieldset class="space-y-4">
+      <legend class="text-lg font-semibold text-gray-700">
+        Leave Management
+      </legend>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Employee</label>
+          <select class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <option>Select Employee</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Leave Type</label>
+          <select class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <option>Vacation</option>
+            <option>Sick Leave</option>
+            <option>Unpaid Leave</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">Start Date</label>
+          <input type="date" class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-600 mb-1">End Date</label>
+          <input type="date" class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        </div>
+
+        <div class="md:col-span-2">
+          <label class="block text-sm font-medium text-gray-600 mb-1">Notes</label>
+          <textarea rows="3" class="w-full rounded-md border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+        </div>
+
+        <div class="md:col-span-2 flex justify-end">
+          <button class="bg-purple-600 text-white py-2 px-4 rounded-lg hover:bg-purple-700 transition">
+            Submit Leave Request
+          </button>
+        </div>
+      </div>
+    </fieldset>
+
+  </form>
+</div>
+
+</body>
+</html>
