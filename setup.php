@@ -9,45 +9,46 @@ if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
 }
 
-if (!$mysqli->query("CREATE DATABASE IF NOT EXISTS $dbName")){
-    die("Database wasn't created!" . $mysqli->error); 
-} else {
-    echo "Database has been created successfully!"; 
+// 1️⃣ Create database if missing
+if (!$mysqli->query("CREATE DATABASE IF NOT EXISTS $dbName")) {
+    die("Database wasn't created! " . $mysqli->error);
 }
-
 $mysqli->select_db($dbName);
 
-$tables = [];
+// 2️⃣ Create tables safely
 
-$tables['department'] = "
+// department
+$mysqli->query("
 CREATE TABLE IF NOT EXISTS department (
     department_id INT AUTO_INCREMENT PRIMARY KEY,
     department_name VARCHAR(100) NOT NULL,
     description VARCHAR(255)
 ) ENGINE=InnoDB;
-";
+");
 
-$tables['position'] = "
+// position
+$mysqli->query("
 CREATE TABLE IF NOT EXISTS position (
     position_id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     min_salary DECIMAL(10,2),
     max_salary DECIMAL(10,2)
 ) ENGINE=InnoDB;
-";
+");
 
-$tables['employee'] = "
+// employee
+$mysqli->query("
 CREATE TABLE IF NOT EXISTS employee (
     employee_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
     last_name VARCHAR(50) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
-    hire_date DATE NOT NULL,
-    employment_status ENUM('active','suspended','terminated') DEFAULT 'active'
+    hire_date DATE NOT NULL
 ) ENGINE=InnoDB;
-";
+");
 
-$tables['employee_position'] = "
+// employee_position
+$mysqli->query("
 CREATE TABLE IF NOT EXISTS employee_position (
     assignment_id INT AUTO_INCREMENT PRIMARY KEY,
     employee_id INT NOT NULL,
@@ -57,12 +58,13 @@ CREATE TABLE IF NOT EXISTS employee_position (
     end_date DATE DEFAULT NULL,
     assignment_type ENUM('hire','promotion','transfer') NOT NULL,
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE,
-    FOREIGN KEY (position_id) REFERENCES position(position_id),
+    FOREIGN KEY (position_id) REFERENCES `position`(position_id), 
     FOREIGN KEY (department_id) REFERENCES department(department_id)
 ) ENGINE=InnoDB;
-";
+");
 
-$tables['user_account'] = "
+// user_account
+$mysqli->query("
 CREATE TABLE IF NOT EXISTS user_account (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -71,9 +73,10 @@ CREATE TABLE IF NOT EXISTS user_account (
     employee_id INT UNIQUE,
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
-";
+");
 
-$tables['attendance'] = "
+// attendance
+$mysqli->query("
 CREATE TABLE IF NOT EXISTS attendance (
     attendance_id INT AUTO_INCREMENT PRIMARY KEY,
     employee_id INT NOT NULL,
@@ -85,9 +88,10 @@ CREATE TABLE IF NOT EXISTS attendance (
     remarks VARCHAR(255),
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
-";
+");
 
-$tables['leave_request'] = "
+// leave_request
+$mysqli->query("
 CREATE TABLE IF NOT EXISTS leave_request (
     leave_id INT AUTO_INCREMENT PRIMARY KEY,
     employee_id INT NOT NULL,
@@ -101,9 +105,10 @@ CREATE TABLE IF NOT EXISTS leave_request (
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
     FOREIGN KEY (approved_by) REFERENCES employee(employee_id)
 ) ENGINE=InnoDB;
-";
+");
 
-$tables['payroll'] = "
+// payroll
+$mysqli->query("
 CREATE TABLE IF NOT EXISTS payroll (
     payroll_id INT AUTO_INCREMENT PRIMARY KEY,
     employee_id INT NOT NULL,
@@ -115,9 +120,10 @@ CREATE TABLE IF NOT EXISTS payroll (
     payment_date DATE,
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
 ) ENGINE=InnoDB;
-";
+");
 
-$tables['performance_review'] = "
+// performance_review
+$mysqli->query("
 CREATE TABLE IF NOT EXISTS performance_review (
     review_id INT AUTO_INCREMENT PRIMARY KEY,
     employee_id INT NOT NULL,
@@ -130,16 +136,8 @@ CREATE TABLE IF NOT EXISTS performance_review (
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
     FOREIGN KEY (reviewer_id) REFERENCES employee(employee_id)
 ) ENGINE=InnoDB;
-";
+");
 
-foreach ($tables as $name => $sql) {
-    if ($mysqli->query($sql)) {
-        echo "Table '$name' created successfully.<br>";
-    } else {
-        echo "Error creating table '$name': " . $mysqli->error . "<br>";
-    }
-}
-
+echo "EMS database setup complete!";
 $mysqli->close();
-echo "<br>EMS setup complete!";
 ?>
