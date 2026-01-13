@@ -69,23 +69,8 @@ CREATE TABLE IF NOT EXISTS user_account (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
     password_hash VARCHAR(255) NOT NULL,
-    role ENUM('admin','hr','manager','employee') NOT NULL,
+    user_role ENUM('admin','hr','manager','employee') NOT NULL,
     employee_id INT UNIQUE,
-    FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE
-) ENGINE=InnoDB;
-");
-
-// attendance
-$mysqli->query("
-CREATE TABLE IF NOT EXISTS attendance (
-    attendance_id INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id INT NOT NULL,
-    date DATE NOT NULL,
-    check_in TIME,
-    check_out TIME,
-    worked_hours DECIMAL(5,2),
-    status ENUM('present','absent','late','remote') NOT NULL,
-    remarks VARCHAR(255),
     FOREIGN KEY (employee_id) REFERENCES employee(employee_id) ON DELETE CASCADE
 ) ENGINE=InnoDB;
 ");
@@ -107,36 +92,6 @@ CREATE TABLE IF NOT EXISTS leave_request (
 ) ENGINE=InnoDB;
 ");
 
-// payroll
-$mysqli->query("
-CREATE TABLE IF NOT EXISTS payroll (
-    payroll_id INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id INT NOT NULL,
-    pay_period VARCHAR(7) NOT NULL,
-    base_salary DECIMAL(10,2) NOT NULL,
-    bonuses DECIMAL(10,2) DEFAULT 0,
-    deductions DECIMAL(10,2) DEFAULT 0,
-    net_salary DECIMAL(10,2) NOT NULL,
-    payment_date DATE,
-    FOREIGN KEY (employee_id) REFERENCES employee(employee_id)
-) ENGINE=InnoDB;
-");
-
-// performance_review
-$mysqli->query("
-CREATE TABLE IF NOT EXISTS performance_review (
-    review_id INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id INT NOT NULL,
-    reviewer_id INT NOT NULL,
-    review_period VARCHAR(20),
-    performance_score DECIMAL(3,2),
-    strengths TEXT,
-    weaknesses TEXT,
-    recommendations TEXT,
-    FOREIGN KEY (employee_id) REFERENCES employee(employee_id),
-    FOREIGN KEY (reviewer_id) REFERENCES employee(employee_id)
-) ENGINE=InnoDB;
-");
 
 echo "EMS database setup complete!";
 $mysqli->close();

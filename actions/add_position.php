@@ -10,7 +10,7 @@ $stmt = $mysqli->prepare(
 $stmt->bind_param("sd", $title, $base_salary);
 
 if ($stmt->execute()) {
-    header("Location: ../dashboard.php");
+    header("Location: ../public/home.html");
     exit;
 } else {
     echo "Error: " . $stmt->error;

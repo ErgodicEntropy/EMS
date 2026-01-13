@@ -11,10 +11,10 @@ $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
 
-if ($user && password_verify($password, $user['password'])) {
+if ($user && password_verify($password, $user['password_hash'])) {
     $_SESSION['user_id'] = $user['user_id'];
-    $_SESSION['role'] = $user['role'];
-    header("Location: ../dashboard.php");
+    $_SESSION['role'] = $user['user_role'];
+    header("Location: ../public/home.html");
     exit;
 } else {
     echo "Invalid credentials";
@@ -23,7 +23,6 @@ if ($user && password_verify($password, $user['password'])) {
 $stmt->close();
 $mysqli->close();
 
-header("Location: ../public/home.html");
 exit; 
 
 ?>

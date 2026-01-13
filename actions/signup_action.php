@@ -22,7 +22,7 @@ if ($result->num_rows === 0) {
 }
 
 $stmt = $mysqli->prepare(
-    "INSERT INTO user (username, password, role, employee_id) VALUES (?, ?, ?, ?)"
+    "INSERT INTO user (username, password_hash, user_role, employee_id) VALUES (?, ?, ?, ?)"
 );
 
 if (!$stmt) {
